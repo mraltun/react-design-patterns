@@ -11,6 +11,12 @@ const getServerData = (url) => async () => {
   return response.data;
 };
 
+const getLocalStorageData = (key) => () => {
+  return localStorage.getItem(key);
+};
+
+const Text = ({ message }) => <h1>{message}</h1>;
+
 const App = () => {
   return (
     // We don't write it here but "CurrentUserLoader" will pass "user" prop to "UserInfo"
@@ -32,6 +38,12 @@ const App = () => {
       </ResourceLoader>
       <DataSource getDataFunc={getServerData("/user/123")} resourceName='user'>
         <UserInfo />
+      </DataSource>
+      <DataSource
+        getDataFunc={getLocalStorageData("message")}
+        resourceName='message'
+      >
+        <Text />
       </DataSource>
     </>
   );
