@@ -17,6 +17,8 @@ const MyComponent = ({onSubmit}) => {
 
 Uncontrolled Modal itself is the one that is controling whether or not it shown. It also controls when it's hidden. None other component has control over what it is doing.
 
+Uncontrolled Onboarding Flow is basically just a component that displays different steps in an onboarding process (i.e Asking user's name, then asking user's age and so on).
+
 # Controlled Components
 
 Components that do not keep track of their own state. All state is passed in as props (when we use the useState with text inputs).
