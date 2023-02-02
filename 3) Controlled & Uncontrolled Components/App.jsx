@@ -4,6 +4,7 @@ import { ControlledForm } from "./ControlledForm";
 import { UncontrolledModal } from "./UncontrolledModal";
 import { ControlledModal } from "./ControlledModal";
 import { UncontrolledOnboardingFlow } from "./UncontrolledOnboardingFlow";
+import { ControlledOnboardingFlow } from "./ControlledOnboardingFlow";
 
 const StepOne = ({ goToNext }) => (
   <>
@@ -24,8 +25,24 @@ const StepThree = ({ goToNext }) => (
   </>
 );
 
+const StepFour = ({ goToNext }) => (
+  <>
+    <h1>Step 4</h1>
+    <p>Congratulations! You qualify for our senior discount</p>
+    <button onClick={() => goToNext({})}>Next</button>
+  </>
+);
+
 function App() {
   const [shouldShowModal, setShouldShowModal] = useState(false);
+
+  const [onboardingData, setOnboardingData] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const onNext = (stepData) => {
+    setOnboardingData({ ...onboardingData, ...stepData });
+    setCurrentIndex(currentIndex + 1);
+  };
 
   return (
     <>
@@ -45,6 +62,12 @@ function App() {
         <StepTwo />
         <StepThree />
       </UncontrolledOnboardingFlow>
+      <ControlledOnboardingFlow currentIndex={currentIndex} onNext={onNext}>
+        <StepOne />
+        <StepTwo />
+        <StepThree />
+        {onboardingData.age >= 62 && <StepFour />}
+      </ControlledOnboardingFlow>
     </>
   );
 }
