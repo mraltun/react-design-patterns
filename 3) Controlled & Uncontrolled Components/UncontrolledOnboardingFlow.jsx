@@ -4,8 +4,17 @@ export const UncontrolledOnboardingFlow = ({ children, onFinish }) => {
   const [onboardingData, setOnboardingData] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const goToNext = () => {
-    setCurrentIndex(currentIndex + 1);
+  const goToNext = (stepData) => {
+    const nextIndex = currentIndex + 1;
+    const updatedData = { ...onboardingData, ...stepData };
+
+    if (nextIndex < children.length) {
+      setCurrentIndex(nextIndex);
+    } else {
+      onFinish(updatedData);
+    }
+
+    setOnboardingData(updatedData);
   };
 
   // If children is a single element
